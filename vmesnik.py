@@ -15,8 +15,8 @@ def generate_poem(word):
     st.session_state.is_generating = True  # Nastavimo stanje generiranja
     with st.spinner("Generiram pesem..."):
         pesem = generator_pesmi(word)
-    st.session_state.is_generating = False  # Generiranje zaključeno
-    st.session_state.poem = pesem  # Shranimo generirano pesem
+        st.session_state.is_generating = False  # Generiranje zaključeno
+        st.session_state.poem = pesem  # Shranimo generirano pesem
 
 
 # Uporabniški vmesnik
