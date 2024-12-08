@@ -1,5 +1,5 @@
 import streamlit as st
-from gerapi import generator_pesmi
+from generator import generator_pesmi
 
 # Funkcija za generiranje pesmi
 def generate_poem(word):
