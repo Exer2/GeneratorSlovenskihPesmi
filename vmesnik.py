@@ -22,7 +22,7 @@ def generate_poem(word):
 
 
 # Uporabniški vmesnik
-st.title("Generator slovenskih pesmi")
+st.title("Pesmopisec")
 word = st.text_input("Vpišite ključno besedo:")
 
 # Prikaz gumba le, če trenutno ne generiramo
