@@ -7,7 +7,7 @@ API_KEY = os.getenv("API_KEY")
 def generator_pesmi(kljucna_beseda):
     client = InferenceClient(api_key=API_KEY)
     messages = [
-	    { "role": "user", "content": f"Napiši pesem v slovenščini s pomočjo ključne besede: {kljucna_beseda}. Napiši le pesem ter naslov, ki je označen z bold" }
+	    { "role": "user", "content": f"Napiši pesem v slovenščini s pomočjo ključne besede: {kljucna_beseda}. Napiši le pesem ter naslov" }
     ]
     stream = client.chat.completions.create(
         model="Qwen/Qwen2.5-72B-Instruct", 
