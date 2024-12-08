@@ -15,9 +15,6 @@ word = st.text_input("Vpišite ključno besedo:")
 if st.button("Generiraj pesem"):
     if word:
         poem = generate_poem(word)
-        
-        # Prikaz s krepko označenim naslovom
-        st.markdown(f"**{title}**")  # Prikaz naslova krepko
         st.text_area("Vaša pesem:", poem, height=500)
     else:
         st.error("Vnesite ključno besedo!")
