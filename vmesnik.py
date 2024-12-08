@@ -10,22 +10,19 @@ def generate_poem(word):
 st.title("Generator slovenskih pesmi")
 word = st.text_input("Vpišite ključno besedo:")
 
-st.markdown(
-    """
-    <style>
-    .textarea {
-        border: 2px solid black;
-        border-radius: 4px;
-        padding: 10px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
 
 if st.button("Generiraj pesem"):
     if word:
         poem = generate_poem(word)
+        
+        # Razdelitev naslova in preostale pesmi
+        lines = poem.split("\n")
+        title = lines[0] if lines else ""  # Prva vrstica je naslov
+        body = "\n".join(lines[1:])  # Preostale vrstice so telo pesmi
+        
+        # Prikaz s krepko označenim naslovom
+        st.markdown(f"**{title}**")  # Prikaz naslova krepko
         st.text_area("Vaša pesem:", poem, height=500)
     else:
         st.error("Vnesite ključno besedo!")
