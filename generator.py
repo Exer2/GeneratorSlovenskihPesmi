@@ -2,7 +2,7 @@ from huggingface_hub import InferenceClient
 #from config import API_KEY
 import os
 
-api_key = os.getenv("API_KEY")
+API_KEY = os.getenv("API_KEY")
 
 def generator_pesmi(kljucna_beseda):
     client = InferenceClient(api_key=API_KEY)
