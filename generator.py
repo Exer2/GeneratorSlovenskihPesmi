@@ -1,11 +1,14 @@
 from huggingface_hub import InferenceClient
 #from config import API_KEY
 import os
+import requests
 
 from langdetect import detect
 
 
 API_KEY = os.getenv("API_KEY")
+PLAYHT_API_KEY = os.getenv("PLAYHT_API_KEY")
+PLAYHT_USER_ID = os.getenv("PLAYHT_USER_ID")
 
 
 
@@ -43,3 +46,31 @@ def generator_pesmi(kljucna_beseda):
             pesem += content
 
     return pesem
+
+
+
+PLAYHT_API_KEY = os.getenv("PLAYHT_API_KEY")
+PLAYHT_USER_ID = os.getenv("PLAYHT_USER_ID")  # Vaša PlayHT uporabniška ID
+
+def text_to_speech(text, voice="Petra"):
+    url = "https://play.ht/api/v1/convert"
+    headers = {
+        "Authorization": f"Bearer {PLAYHT_API_KEY}",
+        "X-User-ID": PLAYHT_USER_ID,
+        "Content-Type": "application/json",
+    }
+    data = {
+        "content": [text],  # PlayHT sprejme besedilo kot seznam vrstic
+        "voice": voice,  # Nastavite glas, npr. "Maja" za slovenščino
+    }
+    response = requests.post(url, headers=headers, json=data)
+    
+    if response.status_code == 200:
+        audio_url = response.json().get("audio_url")
+        return audio_url
+    else:
+        raise Exception(f"Napaka pri generiranju TTS: {response.json()}")
+
+# Testiranje:
+# audio_url = text_to_speech("To je test besedila.")
+# print(audio_url)
