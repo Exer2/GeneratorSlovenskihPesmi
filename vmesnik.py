@@ -1,5 +1,5 @@
 import streamlit as st
-from generator import generator_pesmi
+from generator import generator_pesmi, text_to_speech  
 
 # Funkcija za generiranje pesmi
 def generate_poem(word):
