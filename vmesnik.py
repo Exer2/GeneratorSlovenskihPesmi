@@ -28,13 +28,12 @@ if st.button("Generiraj pesem"):
 
 # Uporabniški vmesnik V2
 
-# Naloži okoljske nastavitve (API ključ iz .env datoteke)
-load_dotenv()
-credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-if not credentials_path:
-    raise ValueError("GOOGLE_APPLICATION_CREDENTIALS ni nastavljena. "
-                     "Prosim nastavite okoljsko spremenljivko z uporabo 'export'.")
 
+# Naloži okoljske nastavitve
+def get_google_credentials():
+    credentials_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
+    credentials_dict = json.loads(credentials_json)
+    return service_account.Credentials.from_service_account_info(credentials_dict)
 
 def record_audio():
     RATE = 16000  # Sampling rate
@@ -60,7 +59,8 @@ def record_audio():
 
 # Funkcija za prepoznavanje govora
 def transcribe_audio_google(file_path):
-    client = speech.SpeechClient()
+    credentials = get_google_credentials()
+    client = speech.SpeechClient(credentials=credentials)
 
     # Naložite avdio datoteko
     with open(file_path, "rb") as audio_file:
