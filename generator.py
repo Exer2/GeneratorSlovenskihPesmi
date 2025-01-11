@@ -1,62 +1,26 @@
-import os
 from huggingface_hub import InferenceClient
-
-# API ključ, pridobljen iz okoljske spremenljivke
-
-
-"""
-def generator_pesmi(kljucna_beseda):
-    # Ustvarimo stranko za poizvedbe
-    client = InferenceClient(api_key=API_KEY)
-    
-    # Navodila za model
-    prompt = f"Napiši pesem v slovenščini glede na ključno besedo: {kljucna_beseda}. Izpiši samo naslov in pod naslovom samo pesem."
-    
-    # Zahteva za generacijo odgovora
-    response = client.text_generation(
-        model="utter-project/EuroLLM-9B-Instruct", 
-        inputs=prompt,
-        parameters={
-            "temperature": 0.9,  # Kreativnost
-            "top_p": 0.9,        # Verjetnostne kombinacije
-            "max_new_tokens": 1000  # Največje število generiranih tokenov
-        }
-    )
-
-    
-    
-    # Pridobimo generirano pesem iz odgovora
-    pesem = response.get("generated_text", "")
-    
-    return pesem
-    """
-
 import os
-from transformers import pipeline
 
-API_KEY = os.getenv("API_KEY")  
-pipe = pipeline(
-    "text-generation", 
-    model="utter-project/EuroLLM-9B-Instruct", 
-    use_auth_token=API_KEY
-)
-
-
-# Ustvarimo pipeline za generacijo besedila
-pipe = pipeline("text-generation", model="utter-project/EuroLLM-9B-Instruct")
+API_KEY = os.getenv("API_KEY")
 
 def generator_pesmi(kljucna_beseda):
-    # Priprava sporočila (prompt) za model
-    prompt = f"Napiši pesem v slovenščini glede na ključno besedo: {kljucna_beseda}. Izpiši samo naslov in pod naslovom samo pesem."
+    client = InferenceClient(api_key=API_KEY)
+    messages = [
+	    { "role": "user", "content": f"Napiši pesem v slovenščini s pomočjo ključne besede: {kljucna_beseda}. Izpiši le naslov in pod naslovom le pesem." }
+    ]
+    stream = client.chat.completions.create(
+        model="Qwen/Qwen2.5-72B-Instruct", 
+        messages=messages, 
+        temperature=0.9,
+        top_p=0.9,
+        max_tokens=1000,
+        stream=True
+    )
+    pesem = ""
 
-    # Generacija besedila z uporabo pipeline
-    result = pipe(prompt, max_length=200, temperature=0.9, top_p=0.9, num_return_sequences=1)
-    
-    # Pridobitev generiranega besedila iz odgovora
-    pesem = result[0]["generated_text"]
+    for chunk in stream:
+        content = chunk.choices[0].delta.content
+        if content:  # Preverimo, ali je del besedila prazen
+            pesem += content
+
     return pesem
-
-
-
-
-
