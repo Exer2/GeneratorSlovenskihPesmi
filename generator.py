@@ -1,29 +1,28 @@
-from huggingface_hub import InferenceClient
 import os
+from huggingface_hub import InferenceClient
 
-
+# API ključ, pridobljen iz okoljske spremenljivke
 API_KEY = os.getenv("API_KEY")
 
 def generator_pesmi(kljucna_beseda):
-    client = InferenceClient(api_key=API_KEY)
-    messages = [
-	    { "role": "user", "content": f"Napiši pesem v slovenščini glede na ključno besedo: {kljucna_beseda}. Izpiši samo naslov in pod naslovom samo pesem." }
-    ]
-    stream = client.chat_completions(
+    # Ustvarimo stranko za poizvedbe
+    client = InferenceClient(api_token=API_KEY)
+    
+    # Navodila za model
+    prompt = f"Napiši pesem v slovenščini glede na ključno besedo: {kljucna_beseda}. Izpiši samo naslov in pod naslovom samo pesem."
+    
+    # Zahteva za generacijo odgovora
+    response = client.text_generation(
         model="utter-project/EuroLLM-9B-Instruct", 
-        messages=messages,
-        temperature=0.9,    
-        top_p=0.9,          
-        max_tokens=1000,    
+        inputs=prompt,
+        parameters={
+            "temperature": 0.9,  # Kreativnost
+            "top_p": 0.9,        # Verjetnostne kombinacije
+            "max_new_tokens": 1000  # Največje število generiranih tokenov
+        }
     )
-    pesem = ""
-
-    for chunk in stream:
-        content = chunk.choices[0].delta.content
-        if content:  # Preverimo, ali je del besedila prazen
-            pesem += content
-
+    
+    # Pridobimo generirano pesem iz odgovora
+    pesem = response.get("generated_text", "")
+    
     return pesem
-
-
-
