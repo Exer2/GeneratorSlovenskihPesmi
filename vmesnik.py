@@ -2,7 +2,7 @@ import streamlit as st
 from generator import generator_pesmi
 import os
 import wave
-import pyaudio
+import sounddevice
 from google.cloud import speech
 import streamlit as st
 from generator import generator_pesmi
@@ -41,35 +41,25 @@ if not credentials_path:
 
 
 def record_audio():
-    FORMAT = pyaudio.paInt16
-    CHANNELS = 1
-    RATE = 16000
-    CHUNK = 1024
+    RATE = 16000  # Sampling rate
+    CHANNELS = 1  # Mono audio
     RECORD_SECONDS = 5
     WAVE_OUTPUT_FILENAME = "audio.wav"
 
-    audio = pyaudio.PyAudio()
-    stream = audio.open(format=FORMAT, channels=CHANNELS,
-                        rate=RATE, input=True,
-                        frames_per_buffer=CHUNK)
     st.write("Snemanje se je začelo... Govorite zdaj!")
-    frames = []
-    for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-        data = stream.read(CHUNK)
-        frames.append(data)
+    
+    # Record audio
+    audio_data = sd.rec(int(RATE * RECORD_SECONDS), samplerate=RATE, channels=CHANNELS, dtype='int16')
+    sd.wait()  # Wait until recording is finished
     st.write("Snemanje zaključeno.")
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
-
-    # Shranjevanje posnetka
-    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-    wf.setnchannels(CHANNELS)
-    wf.setsampwidth(audio.get_sample_size(FORMAT))
-    wf.setframerate(RATE)
-    wf.writeframes(b''.join(frames))
-    wf.close()
-
+    
+    # Save audio to file
+    with wave.open(WAVE_OUTPUT_FILENAME, 'wb') as wf:
+        wf.setnchannels(CHANNELS)
+        wf.setsampwidth(2)  # 16-bit audio corresponds to 2 bytes
+        wf.setframerate(RATE)
+        wf.writeframes(audio_data.tobytes())
+    
     return WAVE_OUTPUT_FILENAME
 
 # Funkcija za prepoznavanje govora
