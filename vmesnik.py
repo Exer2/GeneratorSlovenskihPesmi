@@ -28,7 +28,7 @@ if st.button("Generiraj pesem"):
 
 # Uporabniški vmesnik V2
 
-
+"""
 def get_google_credentials():
     credentials_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
     return service_account.Credentials.from_service_account_info(credentials_json)
@@ -98,3 +98,4 @@ if st.button("Posnemi in generiraj pesem"):
             st.error("Prepis ni bil uspešen.")
     except Exception as e:
         st.error(f"Napaka pri prepoznavanju govora: {e}")
+"""
