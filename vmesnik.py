@@ -1,7 +1,6 @@
 import streamlit as st
 from generator import generator_pesmi
 import os
-from google.cloud import speech
 from generator import generator_pesmi
 from dotenv import load_dotenv
 
