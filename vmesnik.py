@@ -29,7 +29,6 @@ if st.button("Generiraj pesem"):
 # Uporabniški vmesnik V2
 
 
-# Naloži okoljske nastavitve
 def get_google_credentials():
     credentials_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
     credentials_dict = json.loads(credentials_json)
