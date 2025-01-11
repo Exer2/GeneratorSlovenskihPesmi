@@ -6,7 +6,7 @@ API_KEY = os.getenv("API_KEY")
 
 def generator_pesmi(kljucna_beseda):
     # Ustvarimo stranko za poizvedbe
-    client = InferenceClient(api_token=API_KEY)
+    client = InferenceClient(API_KEY=API_KEY)
     
     # Navodila za model
     prompt = f"Napiši pesem v slovenščini glede na ključno besedo: {kljucna_beseda}. Izpiši samo naslov in pod naslovom samo pesem."
