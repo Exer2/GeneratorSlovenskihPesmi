@@ -1,14 +1,13 @@
 from google.cloud import speech
-import os
+from google.oauth2 import service_account
 import streamlit as st
 import pyaudio
 import wave
 
-# Preveri, če je okoljska spremenljivka nastavljena
-credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-if not credentials_path:
-    raise ValueError("GOOGLE_APPLICATION_CREDENTIALS ni nastavljena. "
-                     "Prosim nastavite okoljsko spremenljivko z uporabo 'export'.")
+# Funkcija za pridobitev poverilnic iz Streamlit Secrets
+def get_google_credentials():
+    credentials_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
+    return service_account.Credentials.from_service_account_info(credentials_json)
 
 # Nastavitve za snemanje
 FORMAT = pyaudio.paInt16
@@ -44,8 +43,9 @@ def record_audio():
 
 # Funkcija za prepoznavanje govora
 def transcribe_audio_google(file_path):
-    # Ustvarite odjemalca
-    client = speech.SpeechClient()
+    # Pridobitev poverilnic
+    credentials = get_google_credentials()
+    client = speech.SpeechClient(credentials=credentials)
 
     # Naložite avdio datoteko
     with open(file_path, "rb") as audio_file:
