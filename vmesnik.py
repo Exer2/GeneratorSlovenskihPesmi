@@ -31,8 +31,7 @@ if st.button("Generiraj pesem"):
 
 def get_google_credentials():
     credentials_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
-    credentials_dict = json.loads(credentials_json)
-    return service_account.Credentials.from_service_account_info(credentials_dict)
+    return service_account.Credentials.from_service_account_info(credentials_json)
 
 def record_audio():
     RATE = 16000  # Sampling rate
