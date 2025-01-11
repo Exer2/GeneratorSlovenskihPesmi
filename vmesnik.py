@@ -2,7 +2,7 @@ import streamlit as st
 from generator import generator_pesmi
 import os
 import wave
-import sounddevice
+import sounddevice as sd
 from google.cloud import speech
 import streamlit as st
 from generator import generator_pesmi
