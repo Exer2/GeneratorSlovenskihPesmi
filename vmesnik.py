@@ -1,7 +1,5 @@
 import streamlit as st
 from generator import generator_pesmi
-import os
-
 
 
 
@@ -11,11 +9,9 @@ import os
 def generate_poem(word):
     pesem = generator_pesmi(word)
     return pesem
-
-
+    
 st.title("Pesmopisec")
 word = st.text_input("Vpišite ključno besedo:")
-
 
 
 if st.button("Generiraj pesem"):
@@ -24,6 +20,3 @@ if st.button("Generiraj pesem"):
         st.text_area("Vaša pesem:", poem, height=500)       
     else:
         st.error("Vnesite ključno besedo!")
-
-
-# Uporabniški vmesnik V2
