@@ -10,7 +10,7 @@ def generator_pesmi(kljucna_beseda):
 	    { "role": "user", "content": f"Napiši pesem v slovenščini glede na ključno besedo: {kljucna_beseda}. Izpiši samo naslov in pod naslovom samo pesem." }
     ]
     stream = client.chat.completions.create(
-        model="utter-project/EuroLLM-1.7B-Instruct", 
+        model="utter-project/EuroLLM-9B-Instruct", 
         messages=messages, 
         temperature=0.9,
         top_p=0.9,
