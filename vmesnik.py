@@ -21,6 +21,7 @@ with col2:
     html("""
     <style>
     .icon-button {
+        background-color: transparent;
         border: none;
         cursor: pointer;
         padding: 8px;
