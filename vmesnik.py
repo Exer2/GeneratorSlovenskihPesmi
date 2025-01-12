@@ -11,6 +11,16 @@ st.title("Pesmopisec")
 
 # Postavitev z napisom in poljem za vnos
 #st.write("Vpišite ključno besedo:")
+
+
+# Branje vsebine CSS datoteke
+with open("style.css") as f:
+    css = f.read()
+
+# Vključitev CSS v aplikacijo
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
+
 col1, col2 = st.columns([10, 4], gap="small")
 
 with col1:
@@ -18,31 +28,7 @@ with col1:
 
 with col2:
     # Uporaba HTML za SVG gumb
-    html("""
-    <style>
-    .icon-button {
-        background-color: #f0f0f0;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        border-radius: 10px;
-        display: inline-flex;
-        align-items: center; /* Poravnava navpično */
-        justify-content: center; /* Poravnava vodoravno */
-        width: 40px;
-        height: 40px; /* Višina gumba nastavljena na 40px */
-        margin-top: -8px; /* Poravnava glede na vnosno polje */
-        margin-left: -5px
-    }
-    .icon-button svg {
-        width: 24px;
-        height: 24px;
-        fill: #6c757d; /* Barva ikone */
-    }
-    .icon-button:hover svg {
-        fill: #007bff; /* Barva ikone ob premiku miške */
-    }
-    </style>
+    html("""    
     <button class="icon-button" onclick="alert('Pritisnili ste ikono gumba!')">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
             <path d="M8,11c1.657,0,3-1.343,3-3V3c0-1.657-1.343-3-3-3S5,1.343,5,3v5C5,9.657,6.343,11,8,11z"></path>
