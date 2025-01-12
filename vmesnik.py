@@ -48,7 +48,7 @@ with col2:
     v-1H9v-2.101C11.279,12.434,13,10.414,13,8z"></path>
         </svg>
     </button>
-    """, height=20)
+    """, height=50)
 
 if st.button("Generiraj pesem"):
     if word:
