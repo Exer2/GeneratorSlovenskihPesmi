@@ -12,7 +12,7 @@ st.title("Pesmopisec")
 col1, col2 = st.columns([4, 1])  # Določimo širino stolpcev (4:1)
 
 with col1:
-    word = st.text_input("Vpišite ključno besedo:")
+    word = st.text_input()
 
 with col2:
     if st.button("Gumb"):
