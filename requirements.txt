@@ -1,0 +1,4 @@
+sounddevice
+soundfile
+numpy
+google-cloud-speech
