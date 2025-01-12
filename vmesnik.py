@@ -22,16 +22,9 @@ with col2:
     <style>
     .icon-button {
         background-color: #f0f0f0;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        border-radius: 4px;
-        display: inline-flex;
-        align-items: center; /* Poravnava navpično */
-        justify-content: center; /* Poravnava vodoravno */
-        width: 40px;
-        height: 40px;
-        margin-top: 5px; /* Prilagoditev navpične pozicije glede na polje za vnos */
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .icon-button svg {
         width: 24px;
