@@ -16,8 +16,27 @@ with col1:
     word = st.text_input("bla", label_visibility="collapsed", placeholder="Vnesite ključno besedo...")  # Skrijemo privzeto oznako
 
 with col2:
-    if st.button("Posnami besedo"):
-        st.info("Pritisnili ste gumb!")
+    st.markdown("""
+    <style>
+    .icon-button {
+        background-color: #f0f0f0;
+        border: none;
+        cursor: pointer;
+        padding: 8px 16px;
+        border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .icon-button img {
+        width: 24px;
+        height: 24px;
+    }
+    </style>
+    <button class="icon-button" onclick="window.alert('Pritisnili ste ikono gumba!')">
+        <img src="https://pics.freeicons.io/uploads/icons/png/3536210891586786419-512.png" alt="Ikona">
+    </button>
+    """, unsafe_allow_html=True)
 
 if st.button("Generiraj pesem"):
     if word:
