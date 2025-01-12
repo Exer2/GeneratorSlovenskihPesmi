@@ -7,40 +7,34 @@ google.generativeai.configure(api_key=API_KEY)
 def generator_pesmi(kljucna_beseda):
     model = google.generativeai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content(
-        f"""Ustvari pesem na podlagi ključne besede: {kljucna_beseda}. 
-        Tvoj odgovor naj vsebuje naslov pesmi in celotno besedilo pesmi. 
-        Oblikuj pesem tako, da ima jasno strukturo, kot so kitice in morebiten refren. 
-        Naj bo odgovor predstavljen v obliki:
-        Naslov pesmi
-        (brez narekovajev ali dodatnih uvodnih besed)
-        Nova vrstica
-        Besedilo pesmi (razdeljeno na kitice ali refrene, če je primerno)
+        f"""Ustvari pesem v slovenskem knjižnem jeziku na podlagi ključne besede: {kljucna_beseda}.
 
-        Primer strukture:
+            Tvoj odgovor naj vsebuje:
 
-        Lorem ipsum
+            *   Naslov pesmi: Izberi naslov, ki je tematsko povezan s ključno besedo in odraža vzdušje pesmi.
+            *   Celotno besedilo pesmi: Pesem naj bo napisana v knjižnem slovenskem jeziku, z uporabo bogatega besedišča in smiselno povezanih besed.
+            *   Jasno strukturo: Pesem naj ima jasno razvidne kitice in morebiten refren, ki se ponavlja in poudarja osrednjo temo.
+            *   Rime in ritem: Uporabi tradicionalne slovenske rime (npr. ABAB, AABB, ABCB) in ustvari melodičen ritem, ki spominja na uveljavljene slovenske pesmi. Izogibaj se prisiljenim rimam in poskrbi, da se besede naravno ujemajo.
+            *   Čustva in metafore: Vključi čustva, ki jih vzbuja ključna beseda, in uporabi metafore ali druge pesniške figure, da obogatiš izraznost pesmi.
+            *   Osredotočenost na ključno besedo: Ključna beseda naj bo osrednja tema pesmi, vendar jo uporabi nežno in umetniško, ne preveč očitno ali ponavljajoče.
 
-        Lorem ipsum dolor sit amet, 
-        consectetur adipiscing elit. 
-        Fusce ante nisi, tempus a elementum vel, 
-        gravida et nulla. 
+            Oblika odgovora naj bo naslednja:
 
-        Maecenas maximus mi 
-        et lorem euismod placerat. 
-        Aliquam non faucibus sapien. 
-        Donec fringilla semper 
-        nibh ac volutpat. Sed iaculis, 
-        nisl vel cursus sodales. 
+            Naslov pesmi
+            (brez narekovajev ali dodatnih uvodnih besed)
 
-        odio mauris sagittis ex, 
-        ut dictum lectus leo eu elit. 
-        Nam eget elit vel augue congue condimentum. 
-        Maecenas feugiat ligula 
-        bibendum aliquam faucibus. 
+            Besedilo pesmi (razdeljeno na kitice in refrene, če obstajajo)
 
-        Na ključni besedi se osredotoči kot na osrednjo temo pesmi, 
-        vendar jo uporabi nežno in umetniško. Poskusi z vključevanjem čustev, 
-        uporabo znanih struktur rim v slovenskih pesmih in glasbenega ritma. 
-        Na koncu odgovora ne dodajaj dodatnih razlag ali uvodov – preprosto samo pesem."""
+            Primer (za lažjo predstavo oblike):
+
+            Naslov pesmi
+
+            Prva kitica
+
+            Druga kitica
+
+            tretja kitica
+
+            Na koncu odgovora ne dodajaj dodatnih razlag ali uvodov – preprosto samo pesem."""
     )
     return response.text
