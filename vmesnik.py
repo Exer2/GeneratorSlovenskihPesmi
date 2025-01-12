@@ -10,7 +10,7 @@ st.title("Pesmopisec")
 st.write("Vpišite ključno besedo:")
 
 # Uporabimo `columns` za postavitev v isto vrstico
-col1, col2 = st.columns([10, 2])  # Prilagodimo razmerje širine stolpcev
+col1, col2 = st.columns([3, 1])  # Prilagodimo razmerje širine stolpcev
 
 with col1:
     word = st.text_input("Nekaj", label_visibility="collapsed")  # Skrijemo privzeto oznako
