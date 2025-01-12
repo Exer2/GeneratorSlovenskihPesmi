@@ -11,7 +11,7 @@ st.title("Pesmopisec")
 
 # Postavitev z napisom in poljem za vnos
 #st.write("Vpišite ključno besedo:")
-col1, col2 = st.columns([10, 2])
+col1, col2 = st.columns([3, 1], gap="small")
 
 with col1:
     word = st.text_input("bla", label_visibility="collapsed", placeholder="Vnesite ključno besedo...")
@@ -29,9 +29,9 @@ with col2:
         display: inline-flex;
         align-items: center; /* Poravnava navpično */
         justify-content: center; /* Poravnava vodoravno */
-        width: 40px;
-        height: 40px; /* Višina gumba nastavljena na 40px */
-        margin-top: -10px; /* Poravnava glede na vnosno polje */
+        width: 30px;
+        height: 30px; /* Višina gumba nastavljena na 40px */
+        margin-top: 5px; /* Poravnava glede na vnosno polje */
     }
     .icon-button svg {
         width: 24px;
