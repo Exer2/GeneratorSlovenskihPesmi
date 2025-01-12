@@ -21,7 +21,6 @@ with st.form('chat_input_form'):
     # Use the first column for text input
     with col1:
         k_beseda = st.text_input(
-            navodila,
             value=navodila
             )
     with col2:
