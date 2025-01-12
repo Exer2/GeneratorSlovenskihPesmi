@@ -1,26 +1,7 @@
 import streamlit as st
 from generator import generator_pesmi
 
-st.markdown(
-    '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>',
-    unsafe_allow_html=True,
-)
 
-
-with stylable_container(
-    key="container_with_border",
-    css_styles=r"""
-        button p:before {
-            font-family: 'Font Awesome 5 Free';
-            content: '\f1c1';
-            display: inline-block;
-            padding-right: 3px;
-            vertical-align: middle;
-            font-weight: 900;
-        }
-        """,
-):
-    st.button("Button with icon")
 
 # Uporabniški vmesnik V1
 
@@ -30,7 +11,22 @@ def generate_poem(word):
     return pesem
     
 st.title("Pesmopisec")
-word = st.text_input("Vpišite ključno besedo:")
+
+
+
+with st.form('chat_input_form'):
+    # Create two columns; adjust the ratio to your liking
+    col1, col2 = st.columns([3,1]) 
+
+    # Use the first column for text input
+    with col1:
+        k_beseda = st.text_input("Vpišite ključno besedo:")
+    with col2:
+        posnemi_zvok = st.form_submit_button('Snemaj')
+    
+    if prompt and submitted:
+        # Do something with the inputted text here
+        st.write(f"You said: {prompt}")
 
 
 if st.button("Generiraj pesem"):
@@ -39,6 +35,3 @@ if st.button("Generiraj pesem"):
         st.text_area("Vaša pesem:", poem, height=500)       
     else:
         st.error("Vnesite ključno besedo!")
-
-if st.button("https://pics.freeicons.io/uploads/icons/png/3536210891586786419-512.png"):
-    st.write("TO DO")
