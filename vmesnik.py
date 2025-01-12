@@ -30,8 +30,8 @@ with st.form('chat_input_form'):
 
 
 if st.button("Generiraj pesem"):
-    if word:
-        poem = generate_poem(word)
+    if k_beseda:
+        poem = generate_poem(k_beseda)
         st.text_area("Vaša pesem:", poem, height=500)       
     else:
         st.error("Vnesite ključno besedo!")
