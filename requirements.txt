@@ -2,3 +2,5 @@ streamlit
 pyaudio
 wave
 google-cloud-speech
+google-auth
+six
