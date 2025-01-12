@@ -24,16 +24,13 @@ def generator_pesmi(kljucna_beseda):
             (brez narekovajev ali dodatnih uvodnih besed)
 
             Besedilo pesmi (razdeljeno na kitice)
-            (med kiticami uporabi eno prazno vrstico)
 
             Primer (za lažjo predstavo oblike):
 
             Naslov pesmi
 
             Prva kitica
-
             Druga kitica
-
             tretja kitica
 
             Na koncu odgovora ne dodajaj dodatnih razlag ali uvodov – preprosto samo pesem."""
