@@ -7,6 +7,7 @@ def generate_poem(word):
     return pesem
 
 st.title("Pesmopisec")
+st.write("Vpišite ključno besedo:")
 
 # Uporabimo `columns` za postavitev v isto vrstico
 col1, col2 = st.columns([10, 2])  # Prilagodimo razmerje širine stolpcev
