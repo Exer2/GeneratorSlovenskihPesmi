@@ -12,12 +12,23 @@ st.title("Pesmopisec")
 # Initializacija stanja seje
 if 'input_text' not in st.session_state:
     st.session_state.input_text = ""
-if 'recording_clicked' not in st.session_state:
-    st.session_state.recording_clicked = False
+if 'is_recording' not in st.session_state:
+    st.session_state.is_recording = False
 
-def start_recording():
-    st.session_state.recording_clicked = True
+# Gumb za snemanje
+def toggle_recording():
+    if not st.session_state.is_recording:
+        st.session_state.is_recording = True
+        try:
+            with st.spinner("Snemanje..."):
+                transcript = record_audio()
+                st.session_state.input_text = transcript
+        except Exception as e:
+            st.error(f"Napaka pri snemanju: {e}")
+        finally:
+            st.session_state.is_recording = False
 
+# UI za vnos besede
 col1, col2 = st.columns([3, 1])
 
 with col1:
@@ -28,66 +39,10 @@ with col1:
                          value=st.session_state.input_text)
 
 with col2:
-    # HTML/CSS za mikrofon gumb
-    html("""
-    <style>
-    .icon-button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        border-radius: 10px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        margin-top: -8px;
-        margin-left: -5px
-    }
-    .icon-button svg {
-        width: 24px;
-        height: 24px;
-        fill: #6c757d;
-    }
-    .icon-button:hover svg {
-        fill: #007bff;
-    }
-    </style>
-    <button class="icon-button" id="micButton" onclick="window.microphone_clicked()">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
-            <path d="M8,11c1.657,0,3-1.343,3-3V3c0-1.657-1.343-3-3-3S5,1.343,5,3v5C5,9.657,6.343,11,8,11z"></path>
-            <path d="M13,8V6h-1l0,1.844c0,1.92-1.282,3.688-3.164,4.071C6.266,12.438,4,10.479,4,8V6H3v2c0,2.414,1.721,4.434,4,4.899V15H5v1h6
-    v-1H9v-2.101C11.279,12.434,13,10.414,13,8z"></path>
-        </svg>
-    </button>
-    <script>
-    window.microphone_clicked = function() {
-        window.parent.postMessage({type: 'microphone_clicked'}, '*');
-    }
-    </script>
-    """, height=50)
+    if st.button("🎙️ Snemaj", key="record_button", disabled=st.session_state.is_recording):
+        toggle_recording()
 
-    if st.button("Start Recording", key="hidden_rec_button"):
-        try:
-            with st.spinner("Snemanje..."):
-                transcript = record_audio()
-                st.session_state.input_text = transcript
-                st.experimental_rerun()
-        except Exception as e:
-            st.error(f"Napaka pri snemanju: {e}")
-
-# Dodaj JavaScript za sprožitev skritega gumba ob kliku na mikrofon
-st.markdown("""
-<script>
-window.addEventListener('message', function(e) {
-    if (e.data.type === 'microphone_clicked') {
-        document.querySelector('button[kind="secondary"]').click();
-    }
-}, false);
-</script>
-""", unsafe_allow_html=True)
-
+# Gumb za generiranje pesmi
 if st.button("Generiraj pesem"):
     if word:
         poem = generate_poem(word)

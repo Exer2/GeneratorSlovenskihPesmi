@@ -60,18 +60,12 @@ def record_audio():
     )
 
     try:
-        print("Začnite govoriti...")
         for response in responses:
             for result in response.results:
                 if result.is_final:
-                    text = result.alternatives[0].transcript
-                    print(f"Prepoznano besedilo: {text}")
-                    # Posredujemo besedilo v datoteko `vmesnik.py`
-                    with open("recognized_text.txt", "w") as file:
-                        file.write(text)
-                    return  # Zaključimo po prvi prepoznani besedi
+                    return result.alternatives[0].transcript
     finally:
-        # Počistimo in zapremo stream
+        # Zaključimo snemanje
         stream.stop_stream()
         stream.close()
         audio_interface.terminate()
