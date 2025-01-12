@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit.components.v1 import html
 from generator import generator_pesmi
-from stt import glasovni_vnos
+from stt import record_audio
 
 def generate_poem(word):
     pesem = generator_pesmi(word)
@@ -71,7 +71,7 @@ with col2:
     if st.button("Start Recording", key="hidden_rec_button"):
         try:
             with st.spinner("Snemanje..."):
-                transcript = glasovni_vnos()
+                transcript = record_audio()
                 st.session_state.input_text = transcript
                 st.experimental_rerun()
         except Exception as e:
