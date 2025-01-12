@@ -9,7 +9,7 @@ def generator_pesmi(kljucna_beseda):
 	    { "role": "user", "content": f"Napiši pesem v slovenščini s pomočjo ključne besede: {kljucna_beseda}. Izpiši le naslov in pod naslovom le pesem." }
     ]
     stream = client.chat.completions.create(
-        model="Qwen/QVQ-72B-Preview", 
+        model="bigscience/bloom", 
         messages=messages, 
         temperature=0.9,
         top_p=0.9,
