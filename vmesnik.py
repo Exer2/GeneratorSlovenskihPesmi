@@ -13,15 +13,11 @@ def generate_poem(word):
 st.title("Pesmopisec")
 word = st.text_input("Vpišite ključno besedo:")
 
-col1, col2 = st.columns(2)
-with col1:
-    if st.button("Generiraj pesem"):
-        if word:
-            poem = generate_poem(word)
-            st.text_area("Vaša pesem:", poem, height=500)       
-        else:
-            st.error("Vnesite ključno besedo!")
-with col2:
-    if st.button("Posnami ključno besedo"):
-        st.write("hello world")
+
+if st.button("Generiraj pesem"):
+    if word:
+        poem = generate_poem(word)
+        st.text_area("Vaša pesem:", poem, height=500)       
+    else:
+        st.error("Vnesite ključno besedo!")
 
