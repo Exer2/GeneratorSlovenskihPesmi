@@ -29,8 +29,8 @@ with col2:
         display: inline-flex;
         align-items: center; /* Poravnava navpično */
         justify-content: center; /* Poravnava vodoravno */
-        width: 30px;
-        height: 30px; /* Višina gumba nastavljena na 40px */
+        width: 38px;
+        height: 38px; /* Višina gumba nastavljena na 40px */
         margin-top: -5px; /* Poravnava glede na vnosno polje */
     }
     .icon-button svg {
