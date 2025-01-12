@@ -5,7 +5,7 @@ API_KEY = os.getenv("API_KEY")
 google.generativeai.configure(api_key=API_KEY)
 
 def generator_pesmi(kljucna_beseda):
-    model = google.generativeai.GenerativeModel("gemini-2.0-flash-exp")
+    model = google.generativeai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content(
         f"""Ustvari pesem na podlagi ključne besede: {kljucna_beseda}. 
         Tvoj odgovor naj vsebuje naslov pesmi in celotno besedilo pesmi. 
@@ -38,6 +38,9 @@ def generator_pesmi(kljucna_beseda):
         Maecenas feugiat ligula 
         bibendum aliquam faucibus. 
 
-        Na ključni besedi se osredotoči kot na osrednjo temo pesmi, vendar jo uporabi nežno in umetniško. Poskusi z vključevanjem čustev, uporabo znanih struktur rim v slovenskih pesmih in glasbenega ritma. Na koncu odgovora ne dodajaj dodatnih razlag ali uvodov – preprosto samo pesem."""
+        Na ključni besedi se osredotoči kot na osrednjo temo pesmi, 
+        vendar jo uporabi nežno in umetniško. Poskusi z vključevanjem čustev, 
+        uporabo znanih struktur rim v slovenskih pesmih in glasbenega ritma. 
+        Na koncu odgovora ne dodajaj dodatnih razlag ali uvodov – preprosto samo pesem."""
     )
     return response.text
