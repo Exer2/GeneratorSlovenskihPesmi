@@ -59,26 +59,33 @@ if st.button("Generiraj pesem"):
     else:
         st.error("Vnesite ključno besedo!")
 
-
+# Dodaj CSS za prilagoditev postavitve na mobilnih zaslonih
 html("""
     <style>
-    /* Splošna pravila za gumb */
+    /* Flexbox za zagotovitev, da gumb ostane v vrstici */
+    .stColumns {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
     .stButton>button {
         width: 100%;  /* Gumb naj bo širok */
         height: 40px;
     }
 
-    /* Zmanjšanje razmika pri manjših zaslonih */
+    /* CSS za manjše zaslone - naj gumb ostane v vrstici */
     @media (max-width: 600px) {
-        .stButton>button {
-            width: auto;  /* Gumb naj bo samo tako širok, kot je potrebno */
-            margin-left: 0;
+        .stColumns {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
         }
 
-        /* Če želite, da sta oba stolpca v isti vrstici, uporabite ta razmik */
-        .stColumns>div {
-            display: inline-block;
-            vertical-align: middle; /* Poravnaj elemente */
+        .stButton>button {
+            width: auto;
+            height: 40px;
+            margin-left: 10px;
         }
     }
     </style>
