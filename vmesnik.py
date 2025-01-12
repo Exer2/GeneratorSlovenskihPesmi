@@ -21,5 +21,5 @@ if st.button("Generiraj pesem"):
     else:
         st.error("Vnesite ključno besedo!")
 
-if st.button("Posnemi besedo"):
+if st.button("https://pics.freeicons.io/uploads/icons/png/3536210891586786419-512.png"):
     st.write("TO DO")
