@@ -24,7 +24,7 @@ with st.form('chat_input_form'):
     with col2:
         posnemi_zvok = st.form_submit_button('Snemaj')
     
-    if prompt and submitted:
+    if k_beseda and posnemi_zvok:
         # Do something with the inputted text here
         st.write(f"You said: {prompt}")
 
