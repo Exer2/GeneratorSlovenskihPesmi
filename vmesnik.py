@@ -9,10 +9,10 @@ def generate_poem(word):
 
 st.title("Pesmopisec")
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+
 
 # Postavitev z napisom in poljem za vnos
-#st.write("Vpišite ključno besedo:")
+
 col1, col2 = st.columns([3, 1])
 
 with col1:
