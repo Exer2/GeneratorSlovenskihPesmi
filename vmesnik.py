@@ -8,11 +8,11 @@ def generate_poem(word):
 
 st.title("Pesmopisec")
 
-# Postavimo polje za vnos in gumb v isti vrstici
-col1, col2 = st.columns([4, 1])  # Določimo širino stolpcev (4:1)
+# Uporabimo `columns` za postavitev v isto vrstico
+col1, col2 = st.columns([10, 2])  # Prilagodimo razmerje širine stolpcev
 
 with col1:
-    word = st.text_input("Vpišite ključno besedo:")
+    word = st.text_input("Vpišite ključno besedo:", label_visibility="collapsed")  # Skrijemo privzeto oznako
 
 with col2:
     if st.button("Gumb"):
