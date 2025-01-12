@@ -27,10 +27,11 @@ with col2:
         padding: 8px;
         border-radius: 4px;
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        align-items: center; /* Poravnava navpično */
+        justify-content: center; /* Poravnava vodoravno */
         width: 40px;
         height: 40px;
+        margin-top: 5px; /* Prilagoditev navpične pozicije glede na polje za vnos */
     }
     .icon-button svg {
         width: 24px;
