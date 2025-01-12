@@ -28,9 +28,9 @@ google.generativeai.configure(api_key=API_KEY)
 
     return pesem
     """
-    def generator_pesmi(kljucna_beseda):
-        
+def generator_pesmi(kljucna_beseda):
+    
 
-        model = google.generativeai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content("Explain how AI works")
-        return response.text
+    model = google.generativeai.GenerativeModel("gemini-1.5-flash")
+    response = model.generate_content("Explain how AI works")
+    return response.text
