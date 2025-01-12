@@ -54,16 +54,26 @@ with col2:
         </svg>
     </button>
     """, height=50)
-    if st.button("🎤 Snemaj"):
+    
+      if st.button("Start Recording", key="hidden_rec_button", style="display: none;"):
         try:
-            st.info("Snemanje se je začelo...")
-            transcript = glasovni_vnos()
-            st.success(f"Prepisano: {transcript}")
-            # Posodobi polje za vnos
-            st.session_state["transcribed_text"] = transcript
-            word = transcript  # Nastavi prepisano vrednost kot vnosno besedo
+            with st.spinner("Snemanje..."):
+                transcript = glasovni_vnos()
+                st.session_state.input_text = transcript
+                st.experimental_rerun()
         except Exception as e:
-            st.error(f"Napaka pri pretvorbi: {e}")
+            st.error(f"Napaka pri snemanju: {e}")
+
+# Add JavaScript to trigger the hidden button when microphone is clicked
+st.markdown("""
+<script>
+window.addEventListener('message', function(e) {
+    if (e.data.type === 'microphone_clicked') {
+        document.querySelector('button[kind="secondary"]').click();
+    }
+}, false);
+</script>
+""", unsafe_allow_html=True)
 
 if st.button("Generiraj pesem"):
     if word:
