@@ -10,11 +10,11 @@ def generate_poem(word):
 st.title("Pesmopisec")
 
 # Postavitev z napisom in poljem za vnos
-st.write("Vpišite ključno besedo:")
+#st.write("Vpišite ključno besedo:")
 col1, col2 = st.columns([10, 2])
 
 with col1:
-    word = st.text_input("", placeholder="Vnesite besedo...")  # Polje za vnos brez oznake
+    word = st.text_input("bla", label_visibility="collapsed", placeholder="Vnesite ključno besedo...")
 
 with col2:
     # Uporaba HTML za SVG gumb
