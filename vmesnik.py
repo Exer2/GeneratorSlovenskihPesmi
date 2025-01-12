@@ -68,7 +68,7 @@ with col2:
     </script>
     """, height=50)
 
-    if st.button("Start Recording", key="hidden_rec_button", style="display: none;"):
+    if st.button("Start Recording", key="hidden_rec_button"):
         try:
             with st.spinner("Snemanje..."):
                 transcript = glasovni_vnos()
