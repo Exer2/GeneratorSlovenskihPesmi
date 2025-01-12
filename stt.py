@@ -1,8 +1,6 @@
 import pyaudio
 import wave
-import os
 from google.cloud import speech
-import streamlit as st
 
 # Nastavitve za snemanje
 CHUNK = 1024
@@ -12,20 +10,15 @@ RATE = 16000
 RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "output.wav"
 
-# Funkcija za snemanje
 def record_audio():
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True,
                     frames_per_buffer=CHUNK)
     frames = []
 
-    st.write("Recording...")
-
     for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         data = stream.read(CHUNK)
         frames.append(data)
-
-    st.write("Finished recording.")
 
     stream.stop_stream()
     stream.close()
@@ -38,7 +31,6 @@ def record_audio():
     wf.writeframes(b''.join(frames))
     wf.close()
 
-# Funkcija za pretvorbo govora v besedilo
 def transcribe_audio():
     client = speech.SpeechClient()
     with open(WAVE_OUTPUT_FILENAME, "rb") as audio_file:
@@ -56,15 +48,9 @@ def transcribe_audio():
     for result in response.results:
         return result.alternatives[0].transcript
 
-# Uporabniški vmesnik z uporabo Streamlit
-def main():
-    st.title("Speech to Text App")
-    if st.button("Start Recording"):
-        record_audio()
-        text = transcribe_audio()
-        st.write("Transcribed text: ", text)
-        with open("vmesnik.py", "w") as file:
-            file.write("Transcribed text: " + text)
+def glasovni_vnos():
+    record_audio()
+    return transcribe_audio()
 
 if __name__ == "__main__":
-    main()
+    print(glasovni_vnos())
