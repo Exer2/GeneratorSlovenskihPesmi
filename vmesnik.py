@@ -55,14 +55,14 @@ with col2:
     </button>
     """, height=50)
     
-      if st.button("Start Recording", key="hidden_rec_button", style="display: none;"):
-        try:
-            with st.spinner("Snemanje..."):
-                transcript = glasovni_vnos()
-                st.session_state.input_text = transcript
-                st.experimental_rerun()
-        except Exception as e:
-            st.error(f"Napaka pri snemanju: {e}")
+if st.button("Start Recording", key="hidden_rec_button", style="display: none;"):
+try:
+    with st.spinner("Snemanje..."):
+        transcript = glasovni_vnos()
+        st.session_state.input_text = transcript
+        st.experimental_rerun()
+except Exception as e:
+    st.error(f"Napaka pri snemanju: {e}")
 
 # Add JavaScript to trigger the hidden button when microphone is clicked
 st.markdown("""
