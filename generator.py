@@ -24,6 +24,7 @@ def generator_pesmi(kljucna_beseda):
             (brez narekovajev ali dodatnih uvodnih besed)
 
             Besedilo pesmi (razdeljeno na kitice in refrene, če obstajajo)
+            (med kiticami uporabi eno prazno vrstico)
 
             Primer (za lažjo predstavo oblike):
 
