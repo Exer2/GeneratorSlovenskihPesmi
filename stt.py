@@ -53,7 +53,7 @@ class MicrophoneStream:
 def record_audio():
     """Zajame govor in vrne prepoznano besedilo."""
     # Pridobi poverilnice iz Streamlit Secrets
-    credentials_json = st.secrets["google_cloud"]["credentials_json"]
+    credentials_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]["credentials_json"]
 
     # Ustvari začasno datoteko za poverilnice
     with open("temp_google_credentials.json", "w") as temp_file:
