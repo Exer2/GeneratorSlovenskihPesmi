@@ -25,7 +25,7 @@ with col2:
         border: none;
         cursor: pointer;
         padding: 8px;
-        border-radius: 4px;
+        border-radius: 10px;
         display: inline-flex;
         align-items: center; /* Poravnava navpično */
         justify-content: center; /* Poravnava vodoravno */
