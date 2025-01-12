@@ -12,7 +12,7 @@ st.title("Pesmopisec")
 col1, col2 = st.columns([10, 2])  # Prilagodimo razmerje širine stolpcev
 
 with col1:
-    word = st.text_input("Vpišite ključno besedo:", label_visibility="collapsed")  # Skrijemo privzeto oznako
+    word = st.text_input("Vpišite ključno besedo:")  # Skrijemo privzeto oznako
 
 with col2:
     if st.button("Gumb"):
