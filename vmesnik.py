@@ -11,7 +11,7 @@ st.title("Pesmopisec")
 
 # Postavitev z napisom in poljem za vnos
 #st.write("Vpišite ključno besedo:")
-col1, col2 = st.columns([3, 4])
+col1, col2 = st.columns([1, 4])
 
 with col1:
     word = st.text_input("bla", label_visibility="collapsed", placeholder="Vnesite ključno besedo...")
@@ -58,35 +58,3 @@ if st.button("Generiraj pesem"):
         st.text_area("Vaša pesem:", poem, height=500)
     else:
         st.error("Vnesite ključno besedo!")
-
-# Dodaj CSS za prilagoditev postavitve na mobilnih zaslonih
-html("""
-    <style>
-    /* Flexbox za zagotovitev, da gumb ostane v vrstici */
-    .stColumns {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-    }
-
-    .stButton>button {
-        width: 100%;  /* Gumb naj bo širok */
-        height: 40px;
-    }
-
-    /* CSS za manjše zaslone - naj gumb ostane v vrstici */
-    @media (max-width: 600px) {
-        .stColumns {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-        }
-
-        .stButton>button {
-            width: auto;
-            height: 40px;
-            margin-left: 10px;
-        }
-    }
-    </style>
-""")
