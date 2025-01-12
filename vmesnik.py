@@ -11,7 +11,7 @@ st.title("Pesmopisec")
 
 # Postavitev z napisom in poljem za vnos
 #st.write("Vpišite ključno besedo:")
-col1, col2 = st.columns([4, 3])
+col1, col2 = st.columns([2, 1])
 
 with col1:
     word = st.text_input("bla", label_visibility="collapsed", placeholder="Vnesite ključno besedo...")
