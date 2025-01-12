@@ -9,7 +9,7 @@ def generate_poem(word):
 
 st.title("Pesmopisec")
 
-# Initialize session state
+# Initializacija stanja seje
 if 'input_text' not in st.session_state:
     st.session_state.input_text = ""
 if 'recording_clicked' not in st.session_state:
@@ -22,13 +22,13 @@ col1, col2 = st.columns([3, 1])
 
 with col1:
     word = st.text_input("bla", 
-                        label_visibility="collapsed", 
-                        placeholder="Vnesite ključno besedo...",
-                        key="input_text",
-                        value=st.session_state.input_text)
+                         label_visibility="collapsed", 
+                         placeholder="Vnesite ključno besedo...",
+                         key="input_text",
+                         value=st.session_state.input_text)
 
 with col2:
-    # Custom HTML/CSS for the microphone button
+    # HTML/CSS za mikrofon gumb
     html("""
     <style>
     .icon-button {
@@ -77,7 +77,7 @@ with col2:
         except Exception as e:
             st.error(f"Napaka pri snemanju: {e}")
 
-# Add JavaScript to trigger the hidden button when microphone is clicked
+# Dodaj JavaScript za sprožitev skritega gumba ob kliku na mikrofon
 st.markdown("""
 <script>
 window.addEventListener('message', function(e) {
