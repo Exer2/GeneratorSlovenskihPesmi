@@ -1,84 +1,68 @@
-import streamlit as st
+# speech_to_text.py
+
+import os
 from google.cloud import speech
 import pyaudio
-from six.moves import queue
-import json
-from google.oauth2 import service_account
+import wave
 
-# Audio snemalna konfiguracija
-RATE = 16000
-CHUNK = int(RATE / 10)  # 100ms
+# Inicializacija Google Cloud Speech-to-Text API
+client = speech.SpeechClient()
 
-class MicrophoneStream:
-    """Zajema zvok z mikrofona in ga strežnikom posreduje v delih."""
-    def __init__(self, rate, chunk):
-        self.rate = rate
-        self.chunk = chunk
-        self.buff = queue.Queue()
-        self.closed = True
-
-    def __enter__(self):
-        self.audio_interface = pyaudio.PyAudio()
-        self.audio_stream = self.audio_interface.open(
-            format=pyaudio.paInt16,
-            channels=1,
-            rate=self.rate,
-            input=True,
-            frames_per_buffer=self.chunk,
-            stream_callback=self._fill_buffer,
-        )
-        self.closed = False
-        return self
-
-    def __exit__(self, type, value, traceback):
-        self.audio_stream.stop_stream()
-        self.audio_stream.close()
-        self.closed = True
-        self.buff.put(None)
-        self.audio_interface.terminate()
-
-    def _fill_buffer(self, in_data, frame_count, time_info, status_flags):
-        """Shranjuje zvok v predpomnilnik."""
-        self.buff.put(in_data)
-        return None, pyaudio.paContinue
-
-    def generator(self):
-        """Generator, ki strežniku posreduje zvočne podatke."""
-        while not self.closed:
-            chunk = self.buff.get()
-            if chunk is None:
-                return
-            yield chunk
-
+# Funkcija za zajem zvoka iz mikrofona
 def record_audio():
-    """Zajame govor in vrne prepoznano besedilo."""
-    # Pridobi poverilnice iz Streamlit Secrets
-    credentials_info = st.secrets["google_cloud"]["credentials_json"]
-    credentials = service_account.Credentials.from_service_account_info(json.loads(credentials_info))
+    CHUNK = 1024
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 1
+    RATE = 16000
+    RECORD_SECONDS = 5
+    WAVE_OUTPUT_FILENAME = "audio.wav"
 
-    # Ustvari odjemalca za Google Cloud Speech
-    client = speech.SpeechClient(credentials=credentials)
+    p = pyaudio.PyAudio()
 
-    # Konfiguracija za Google Cloud Speech API
+    print("Začetek snemanja...")
+
+    stream = p.open(format=FORMAT,
+                    channels=CHANNELS,
+                    rate=RATE,
+                    input=True,
+                    frames_per_buffer=CHUNK)
+
+    frames = []
+
+    for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+        data = stream.read(CHUNK)
+        frames.append(data)
+
+    print("Konec snemanja.")
+
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(p.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(b''.join(frames))
+    wf.close()
+
+    return WAVE_OUTPUT_FILENAME
+
+# Funkcija za prepoznavanje govora iz zvočne datoteke
+def recognize_speech(audio_file):
+    with open(audio_file, 'rb') as f:
+        content = f.read()
+
+    audio = speech.RecognitionAudio(content=content)
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=RATE,
-        language_code="sl-SI",  # Spremenite v ustrezen jezik (npr. "en-US" za angleščino)
-    )
-    streaming_config = speech.StreamingRecognitionConfig(
-        config=config,
-        interim_results=False,  # Vrnemo samo dokončne rezultate
+        sample_rate_hertz=16000,
+        language_code="sl-SI",
     )
 
-    with MicrophoneStream(RATE, CHUNK) as stream:
-        audio_generator = stream.generator()
-        requests = (speech.StreamingRecognizeRequest(audio_content=chunk) for chunk in audio_generator)
-        responses = client.streaming_recognize(streaming_config, requests)
+    response = client.recognize(config=config, audio=audio)
 
-        try:
-            for response in responses:
-                for result in response.results:
-                    if result.is_final:
-                        return result.alternatives[0].transcript
-        except Exception as e:
-            st.error(f"Napaka pri prepoznavanju govora: {e}")
+    if response.results:
+        return response.results[0].alternatives[0].transcript
+    else:
+        return "Ni bilo zaznati govora."

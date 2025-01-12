@@ -1,7 +1,8 @@
 import streamlit as st
 from streamlit.components.v1 import html
 from generator import generator_pesmi
-from stt import record_audio
+from stt import record_audio, recognize_speech
+
 
 def generate_poem(word):
     pesem = generator_pesmi(word)
@@ -49,3 +50,10 @@ if st.button("Generiraj pesem"):
         st.text_area("Vaša pesem:", poem, height=500)
     else:
         st.error("Vnesite ključno besedo!")
+
+
+if st.button("Začni snemanje"):
+        audio_file = record_audio()  # Klicanje funkcije za snemanje zvoka
+        st.write("Snemanje zaključeno! Zdaj prepoznavanje govora...")
+        transcript = recognize_speech(audio_file)  # Klicanje funkcije za prepoznavanje govora
+        st.write(f"Prepoznano besedilo: {transcript}")
