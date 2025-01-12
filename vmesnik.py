@@ -32,6 +32,7 @@ with col2:
         width: 40px;
         height: 40px; /* Višina gumba nastavljena na 40px */
         margin-top: -8px; /* Poravnava glede na vnosno polje */
+        margin-left: -10px
     }
     .icon-button svg {
         width: 24px;
