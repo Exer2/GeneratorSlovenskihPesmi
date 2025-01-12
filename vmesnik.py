@@ -20,3 +20,6 @@ if st.button("Generiraj pesem"):
         st.text_area("Vaša pesem:", poem, height=500)       
     else:
         st.error("Vnesite ključno besedo!")
+
+if st.button("Posnemi besedo"):
+    st.write("TO DO")
