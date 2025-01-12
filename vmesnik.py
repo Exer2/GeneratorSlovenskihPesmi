@@ -12,7 +12,7 @@ def generate_poem(word):
     
 st.title("Pesmopisec")
 
-
+navodila = "Vpišite ključno besedo:"
 
 with st.form('chat_input_form'):
     # Create two columns; adjust the ratio to your liking
@@ -20,7 +20,9 @@ with st.form('chat_input_form'):
 
     # Use the first column for text input
     with col1:
-        k_beseda = st.text_input("Vpišite ključno besedo:")
+        k_beseda = st.text_input(
+            navodila
+            )
     with col2:
         posnemi_zvok = st.form_submit_button('Snemaj')
     
