@@ -7,13 +7,13 @@ def generate_poem(word):
     return pesem
 
 st.title("Pesmopisec")
-#st.write("Vpišite ključno besedo:")
 
-# Uporabimo `columns` za postavitev v isto vrstico
-col1, col2 = st.columns([3, 1])  # Prilagodimo razmerje širine stolpcev
+# Ohranimo napis nad poljem in dodamo HTML za gumb z ikono
+st.write("Vpišite ključno besedo:")
+col1, col2 = st.columns([10, 2])
 
 with col1:
-    word = st.text_input("bla", label_visibility="collapsed", placeholder="Vnesite ključno besedo...")  # Skrijemo privzeto oznako
+    word = st.text_input("", placeholder="Vnesite besedo...")  # Polje za vnos brez oznake
 
 with col2:
     st.markdown("""
@@ -22,19 +22,29 @@ with col2:
         background-color: #f0f0f0;
         border: none;
         cursor: pointer;
-        padding: 8px 16px;
+        padding: 8px;
         border-radius: 4px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        width: 40px;
+        height: 40px;
     }
-    .icon-button img {
+    .icon-button svg {
         width: 24px;
         height: 24px;
+        fill: #6c757d; /* Barva ikone */
+    }
+    .icon-button:hover svg {
+        fill: #007bff; /* Barva ikone ob premiku miške */
     }
     </style>
     <button class="icon-button" onclick="window.alert('Pritisnili ste ikono gumba!')">
-        <img src="https://pics.freeicons.io/uploads/icons/png/3536210891586786419-512.png" alt="Ikona">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
+            <path d="M8,11c1.657,0,3-1.343,3-3V3c0-1.657-1.343-3-3-3S5,1.343,5,3v5C5,9.657,6.343,11,8,11z"></path>
+            <path d="M13,8V6h-1l0,1.844c0,1.92-1.282,3.688-3.164,4.071C6.266,12.438,4,10.479,4,8V6H3v2c0,2.414,1.721,4.434,4,4.899V15H5v1h6
+	v-1H9v-2.101C11.279,12.434,13,10.414,13,8z"></path>
+        </svg>
     </button>
     """, unsafe_allow_html=True)
 
