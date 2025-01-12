@@ -31,7 +31,7 @@ with col2:
         justify-content: center; /* Poravnava vodoravno */
         width: 40px;
         height: 40px; /* Višina gumba nastavljena na 40px */
-        margin-top: -7px; /* Poravnava glede na vnosno polje */
+        margin-top: -9px; /* Poravnava glede na vnosno polje */
     }
     .icon-button svg {
         width: 24px;
