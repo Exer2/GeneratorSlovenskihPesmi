@@ -1,9 +1,9 @@
-import os
 import streamlit as st
 from google.cloud import speech
 import pyaudio
 from six.moves import queue
 import json
+from google.oauth2 import service_account
 
 # Audio snemalna konfiguracija
 RATE = 16000
@@ -53,16 +53,11 @@ class MicrophoneStream:
 def record_audio():
     """Zajame govor in vrne prepoznano besedilo."""
     # Pridobi poverilnice iz Streamlit Secrets
-    google_creds = st.secrets["google_cloud"]["credentials_json"]
+    credentials_info = st.secrets["google_cloud"]["credentials_json"]
+    credentials = service_account.Credentials.from_service_account_info(json.loads(credentials_info))
 
-    # Ustvari začasno datoteko za poverilnice
-    with open("temp_google_credentials.json", "w") as temp_file:
-        temp_file.write(google_creds)
-
-    # Nastavi pot do poverilnic
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "temp_google_credentials.json"
-
-    client = speech.SpeechClient()
+    # Ustvari odjemalca za Google Cloud Speech
+    client = speech.SpeechClient(credentials=credentials)
 
     # Konfiguracija za Google Cloud Speech API
     config = speech.RecognitionConfig(
@@ -85,6 +80,5 @@ def record_audio():
                 for result in response.results:
                     if result.is_final:
                         return result.alternatives[0].transcript
-        finally:
-            # Počisti začasno datoteko
-            os.remove("temp_google_credentials.json")
+        except Exception as e:
+            st.error(f"Napaka pri prepoznavanju govora: {e}")
