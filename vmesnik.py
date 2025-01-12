@@ -16,7 +16,7 @@ with col1:
     word = st.text_input("Nekaj", label_visibility="collapsed")  # Skrijemo privzeto oznako
 
 with col2:
-    if st.button("Gumb"):
+    if st.button("Posnami besedo"):
         st.info("Pritisnili ste gumb!")
 
 if st.button("Generiraj pesem"):
