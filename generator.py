@@ -13,9 +13,10 @@ def generator_pesmi(kljucna_beseda):
         messages=messages, 
         temperature=0.9,
         top_p=0.9,
-        max_tokens=1000,
+        max_tokens=200,
         stream=True
     )
+
     pesem = ""
 
     for chunk in stream:
