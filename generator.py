@@ -23,7 +23,7 @@ def generator_pesmi(kljucna_beseda):
             Naslov pesmi
             (brez narekovajev ali dodatnih uvodnih besed)
 
-            Besedilo pesmi (razdeljeno na kitice in refrene, če obstajajo)
+            Besedilo pesmi (razdeljeno na kitice)
             (med kiticami uporabi eno prazno vrstico)
 
             Primer (za lažjo predstavo oblike):
