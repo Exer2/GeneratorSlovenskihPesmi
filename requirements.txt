@@ -1,3 +1,4 @@
+streamlit
+pyaudio
+wave
 google-cloud-speech
-requests
-google-auth

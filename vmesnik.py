@@ -68,27 +68,21 @@ with col2:
     </script>
     """, height=50)
 
-# Hidden button that will be triggered by JavaScript
-st.button("Start Recording", key="hidden_rec_button", on_click=start_recording)
-
-# Handle recording logic
-if st.session_state.recording_clicked:
-    try:
-        with st.spinner("Snemanje..."):
-            transcript = glasovni_vnos()
-            st.session_state.input_text = transcript
-            st.session_state.recording_clicked = False
-            st.experimental_rerun()
-    except Exception as e:
-        st.error(f"Napaka pri snemanju: {e}")
-        st.session_state.recording_clicked = False
+    if st.button("Start Recording", key="hidden_rec_button", style="display: none;"):
+        try:
+            with st.spinner("Snemanje..."):
+                transcript = glasovni_vnos()
+                st.session_state.input_text = transcript
+                st.experimental_rerun()
+        except Exception as e:
+            st.error(f"Napaka pri snemanju: {e}")
 
 # Add JavaScript to trigger the hidden button when microphone is clicked
 st.markdown("""
 <script>
 window.addEventListener('message', function(e) {
     if (e.data.type === 'microphone_clicked') {
-        document.querySelector('button[data-testid="baseButton-secondary"]').click();
+        document.querySelector('button[kind="secondary"]').click();
     }
 }, false);
 </script>
