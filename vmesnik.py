@@ -26,7 +26,7 @@ with st.form('chat_input_form'):
     
     if k_beseda and posnemi_zvok:
         # Do something with the inputted text here
-        st.write(f"You said: {prompt}")
+        st.write(f"You said: {k_beseda}")
 
 
 if st.button("Generiraj pesem"):
