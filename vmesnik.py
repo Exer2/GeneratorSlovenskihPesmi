@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit.components.v1 import html
 from generator import generator_pesmi
+from stt import glasovni_vnos
 
 # Funkcija za generiranje pesmi
 def generate_poem(word):
@@ -53,6 +54,16 @@ with col2:
         </svg>
     </button>
     """, height=50)
+    if st.button("🎤 Snemaj"):
+        try:
+            st.info("Snemanje se je začelo...")
+            transcript = glasovni_vnos()
+            st.success(f"Prepisano: {transcript}")
+            # Posodobi polje za vnos
+            st.session_state["transcribed_text"] = transcript
+            word = transcript  # Nastavi prepisano vrednost kot vnosno besedo
+        except Exception as e:
+            st.error(f"Napaka pri pretvorbi: {e}")
 
 if st.button("Generiraj pesem"):
     if word:

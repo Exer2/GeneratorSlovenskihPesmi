@@ -1,8 +1,7 @@
-from google.cloud import speech
 import os
-import streamlit as st
 import pyaudio
 import wave
+from google.cloud import speech
 
 # Preveri, če je okoljska spremenljivka nastavljena
 credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
@@ -24,12 +23,12 @@ def record_audio():
     stream = audio.open(format=FORMAT, channels=CHANNELS,
                         rate=RATE, input=True,
                         frames_per_buffer=CHUNK)
-    st.write("Snemanje se je začelo... Govorite zdaj!")
+    print("Snemanje se je začelo... Govorite zdaj!")
     frames = []
     for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         data = stream.read(CHUNK)
         frames.append(data)
-    st.write("Snemanje zaključeno.")
+    print("Snemanje zaključeno.")
     stream.stop_stream()
     stream.close()
     audio.terminate()
@@ -41,6 +40,8 @@ def record_audio():
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+
+    return WAVE_OUTPUT_FILENAME
 
 # Funkcija za prepoznavanje govora
 def transcribe_audio_google(file_path):
@@ -67,15 +68,7 @@ def transcribe_audio_google(file_path):
         return result.alternatives[0].transcript
     return "Prepis ni bil uspešen."
 
-# Streamlit UI
-st.title("Pretvorba govora v besedilo")
-st.write("Uporabite gumb spodaj za snemanje govora in pretvorbo v besedilo.")
-
-if st.button("Posnemi govor"):
-    record_audio()
-    st.write("Zvok je posnet. Pretvarjam v besedilo...")
-    try:
-        transcript = transcribe_audio_google(WAVE_OUTPUT_FILENAME)
-        st.write("Prepis: ", transcript)
-    except Exception as e:
-        st.write("Napaka pri pretvorbi: ", e)
+# Glavna funkcija za snemanje in prepis
+def glasovni_vnos():
+    audio_file = record_audio()
+    return transcribe_audio_google(audio_file)
