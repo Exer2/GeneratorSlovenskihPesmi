@@ -58,3 +58,28 @@ if st.button("Generiraj pesem"):
         st.text_area("Vaša pesem:", poem, height=500)
     else:
         st.error("Vnesite ključno besedo!")
+
+
+html("""
+    <style>
+    /* Splošna pravila za gumb */
+    .stButton>button {
+        width: 100%;  /* Gumb naj bo širok */
+        height: 40px;
+    }
+
+    /* Zmanjšanje razmika pri manjših zaslonih */
+    @media (max-width: 600px) {
+        .stButton>button {
+            width: auto;  /* Gumb naj bo samo tako širok, kot je potrebno */
+            margin-left: 0;
+        }
+
+        /* Če želite, da sta oba stolpca v isti vrstici, uporabite ta razmik */
+        .stColumns>div {
+            display: inline-block;
+            vertical-align: middle; /* Poravnaj elemente */
+        }
+    }
+    </style>
+""")
