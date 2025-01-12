@@ -30,7 +30,7 @@ with col2:
         align-items: center; /* Poravnava navpično */
         justify-content: center; /* Poravnava vodoravno */
         width: 40px;
-        height: 42px; /* Višina gumba nastavljena na 40px */
+        height: 40px; /* Višina gumba nastavljena na 40px */
         margin-top: -8px; /* Poravnava glede na vnosno polje */
     }
     .icon-button svg {
