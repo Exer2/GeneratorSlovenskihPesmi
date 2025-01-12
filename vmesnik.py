@@ -23,10 +23,5 @@ with col1:
             st.error("Vnesite ključno besedo!")
 with col2:
     if st.button("Posnami ključno besedo"):
-        if word:
-            poem = generate_poem(word)
-            st.text_area("Vaša pesem:", poem, height=500)       
-        else:
-            st.error("Vnesite ključno besedo!")
-
+        st.write("hello world")
 
