@@ -1,7 +1,5 @@
 import os
-import sounddevice as sd
-import soundfile as sf
-import numpy as np
+import speech_recognition as sr
 from google.cloud import speech
 
 def check_credentials():
@@ -11,22 +9,18 @@ def check_credentials():
                         "Prosim nastavite okoljsko spremenljivko z uporabo 'export'.")
 
 def record_audio():
-    RATE = 16000
-    CHANNELS = 1
-    RECORD_SECONDS = 5
     WAVE_OUTPUT_FILENAME = "audio.wav"
-
-    # Snemanje
-    recording = sd.rec(
-        int(RECORD_SECONDS * RATE),
-        samplerate=RATE,
-        channels=CHANNELS,
-        dtype=np.int16
-    )
-    sd.wait()  # Počakaj, da se snemanje konča
-
+    recognizer = sr.Recognizer()
+    
+    with sr.Microphone() as source:
+        # Prilagodi za okoliški hrup
+        recognizer.adjust_for_ambient_noise(source)
+        # Snemaj 5 sekund
+        audio = recognizer.listen(source, timeout=5)
+        
     # Shrani posnetek
-    sf.write(WAVE_OUTPUT_FILENAME, recording, RATE)
+    with open(WAVE_OUTPUT_FILENAME, "wb") as f:
+        f.write(audio.get_wav_data())
     
     return WAVE_OUTPUT_FILENAME
 
@@ -37,14 +31,14 @@ def transcribe_audio_google(file_path):
     with open(file_path, "rb") as audio_file:
         content = audio_file.read()
 
-    audio = speech.RecognitionAudio(content=content)
+    audio = speech.RecognitionConfig.AudioEncoding.LINEAR16
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=16000,
         language_code="sl-SI",
     )
 
-    response = client.recognize(config=config, audio=audio)
+    response = client.recognize(config=config, audio=speech.RecognitionAudio(content=content))
 
     for result in response.results:
         return result.alternatives[0].transcript

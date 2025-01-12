@@ -1,4 +1,3 @@
-sounddevice
-soundfile
+speech_recognition
 numpy
 google-cloud-speech
