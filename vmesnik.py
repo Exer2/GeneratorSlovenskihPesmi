@@ -13,9 +13,7 @@ col1, col2 = st.columns([3, 1])
 
 word = st.text_input("bla", 
         label_visibility="collapsed", 
-        placeholder="Vnesite ključno besedo...",
-        key="input_text",
-        value=st.session_state.input_text)
+        placeholder="Vnesite ključno besedo...")
 
 
 # Gumb za generiranje pesmi
