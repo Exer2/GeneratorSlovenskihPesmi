@@ -8,9 +8,6 @@ def generate_poem(word):
 
 st.title("Pesmopisec")
 
-
-col1, col2 = st.columns([3, 1])
-
 word = st.text_input("bla", 
         label_visibility="collapsed", 
         placeholder="Vnesite ključno besedo...")
